@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
+  imageWidth = 50;
+  imageMargin : number = 2;
+
   pageTitle: string = 'Lista de produtos';
   products: any[] = [{
     "productId": 1,
@@ -28,7 +31,7 @@ export class ProductListComponent implements OnInit {
     "starRating": 4.2,
     "imageUrl": "assets/images/garden_cart.png"
   }];
-  
+
   constructor() { }
 
   ngOnInit(): void {

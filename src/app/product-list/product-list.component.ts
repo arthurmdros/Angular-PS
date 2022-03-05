@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IProduct } from './product';
 
 @Component({
   selector: 'pm-product-list',
@@ -9,9 +10,10 @@ export class ProductListComponent implements OnInit {
 
   imageWidth = 50;
   imageMargin : number = 2;
-
+  showImage: boolean = false;
+  listFilter: string = "cart";
   pageTitle: string = 'Lista de produtos';
-  products: any[] = [{
+  products: IProduct[] = [{
     "productId": 1,
     "productName": "Leaf Rake",
     "productCode": "GDN-0011",
@@ -31,6 +33,10 @@ export class ProductListComponent implements OnInit {
     "starRating": 4.2,
     "imageUrl": "assets/images/garden_cart.png"
   }];
+
+  toggleImage():void{
+    this.showImage = !this.showImage;
+  }
 
   constructor() { }
 

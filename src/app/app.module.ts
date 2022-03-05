@@ -1,3 +1,4 @@
+import { ConvertsToSpacePipe } from './shared/converts-to-space.pipe';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,7 +9,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    ConvertsToSpacePipe
   ],
   imports: [
     BrowserModule,

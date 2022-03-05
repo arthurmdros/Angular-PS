@@ -59,4 +59,7 @@ export class ProductListComponent implements OnInit {
     this._listFilter = "cart";
   }
 
+  onRatingClicked(message:string): void{
+    this.pageTitle = 'Lista de produtos: ' + message;
+  }
 }

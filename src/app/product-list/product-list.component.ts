@@ -56,7 +56,7 @@ export class ProductListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this._listFilter = "cart";
+    this._listFilter = "";
   }
 
 }

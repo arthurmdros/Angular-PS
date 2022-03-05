@@ -9,6 +9,7 @@ import { IProduct } from './product';
 })
 export class ProductListComponent implements OnInit {
 
+  errorMessage: string = '';
   imageWidth = 50;
   imageMargin : number = 2;
   showImage: boolean = false;
@@ -38,8 +39,13 @@ export class ProductListComponent implements OnInit {
   constructor(private productService:ProductsService) { }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
-    this.filteredProducts = this.products;
+    this.productService.getProducts().subscribe({
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error: err => this.errorMessage = err
+    });
   }
 
   onRatingClicked(message:string): void{

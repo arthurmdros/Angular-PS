@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { IProduct } from '../product-list/product';
+import { IProduct } from '../products/product';
 
 @Injectable({
   providedIn: 'root'

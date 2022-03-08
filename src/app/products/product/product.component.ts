@@ -14,17 +14,7 @@ export class ProductComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(){
-    this.productForm = new FormGroup({
-      //productId: number;
-      productName: new FormControl(),
-      productCode: new FormControl(),
-      releaseDate: new FormControl(),
-      price: new FormControl(),
-      description: new FormControl(),
-      //starRating: number;
-      //imageUrl: string;
-   });
-    /*this.productForm = this.fb.group({
+    this.productForm = this.fb.group({
       //productId: number;
       productName: '',
       productCode: '',
@@ -33,7 +23,7 @@ export class ProductComponent implements OnInit {
       description: '',
       //starRating: number;
       //imageUrl: string;
-    });*/
+    });
   }
 
   populateTestData(): void{

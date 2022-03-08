@@ -5,8 +5,8 @@
 
   <div class="card-body">
     <form novalidate
-          (ngSubmit)="save(productForm)"
-          #productForm="ngForm">
+          (ngSubmit)="save()"
+          formGroup='productForm'>
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
@@ -18,15 +18,15 @@
                  placeholder="Produto (obrigatório)"
                  required
                  minlength="3"
-                 [(ngModel)]=product.productName
-                 name="productName"
-                 #productNameVar="ngModel"
-                 [ngClass]="{'is-invalid': (productNameVar.touched || productNameVar.dirty) && !productNameVar.valid }" />
+                 formControlProductName = "productName"
+                 [ngClass]="{'is-invalid': (productForm.get('productName').touched ||
+                                            productForm.get('productName').dirty) && !
+                                            productForm.get('productName').valid }" />
           <span class="invalid-feedback">
-            <span *ngIf="productNameVar.errors?.required">
+            <span *ngIf="productForm.get('productName').errors?.required">
               Informe o nome do produto.
             </span>
-            <span *ngIf="productNameVar.errors?.minlength">
+            <span *ngIf="productForm.get('productName').errors?.minlength">
               O nome deve conter pelo menos 3 letras.
             </span>
           </span>
@@ -43,15 +43,13 @@
                  placeholder="Código do produto (obrigatório)"
                  required
                  maxlength="8"
-                 [(ngModel)]="product.productCode"
-                 name="productCode"
-                 #productCodeVar="ngModel"
-                 [ngClass]="{'is-invalid': (productCodeVar.touched || productCodeVar.dirty) && !productCodeVar.valid }" />
+                 formControlProductCode = "productCode"
+                 [ngClass]="{'is-invalid': (productForm.get('productCode').touched || productForm.get('productCode').dirty) && !productForm.get('productCode').valid }" />
           <span class="invalid-feedback">
-            <span *ngIf="productCodeVar.errors?.required">
+            <span *ngIf="productForm.get('productCode').errors?.required">
               Informe o código do produto.
             </span>
-            <span *ngIf="productCodeVar.errors?.maxlength">
+            <span *ngIf="productForm.get('productCode').errors?.maxlength">
               O código deve possuir no mínimo 8 caracteres.
             </span>
           </span>
@@ -65,10 +63,8 @@
           <input class="form-control"
                  id="releaseDateId"
                  type="date"
-                 [(ngModel)]="product.releaseDate"
-                 name="releaseDate"
-                 #releaseDateVar="ngModel"
-                 [ngClass]="{'is-invalid': (releaseDateVar.touched || releaseDateVar.dirty) && !releaseDateVar.valid }" />
+                 formControlReleaseDate = "releaseDate"
+                 [ngClass]="{'is-invalid': (productForm.get('releaseDate').touched || productForm.get('releaseDate').dirty) && !productForm.get('releaseDate').valid }" />
         </div>
       </div>
 
@@ -79,14 +75,12 @@
           <input class="form-control"
                  id="priceId"
                  placeholder="Preço (obrigatório)"
-                 [(ngModel)]="product.price"
-                 name="price"
                  type="number"
                  required
-                 #priceVar="ngModel"
-                 [ngClass]="{'is-invalid': (priceVar.touched || priceVar.dirty) && !priceVar.valid }" />
+                 formControlPrice = "price"
+                 [ngClass]="{'is-invalid': (productForm.get('price').touched || productForm.get('price').dirty) && !productForm.get('price').valid }" />
           <span class="invalid-feedback">
-            <span *ngIf="productCodeVar.errors?.required">
+            <span *ngIf="productForm.get('price').errors?.required">
               Informe o preço do produto.
             </span>
           </span>
@@ -100,10 +94,8 @@
           <input class="form-control"
                  id="descriptionId"
                  placeholder="Descrição (não obrigatória)"
-                 [(ngModel)]="product.description"
-                 name="description"
-                 #descriptionVar="ngModel"
-                 [ngClass]="{'is-invalid': (descriptionVar.touched || descriptionVar.dirty) && !descriptionVar.valid }" />
+                 formControlDescription = "description"
+                 [ngClass]="{'is-invalid': (productForm.get('description').touched || productForm.get('description').dirty) && !productForm.get('description').valid }" />
         </div>
       </div>
 

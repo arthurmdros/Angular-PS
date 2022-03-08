@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
 import { ProductModule } from './products/product.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ProductModule } from './products/product.module';
       {path: '', redirectTo: 'welcome', pathMatch: 'full'},
       {path: '**', redirectTo: 'welcome', pathMatch: 'full'},
     ]),
+    FormsModule,
     ProductModule
   ],
   bootstrap: [AppComponent]

@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Product } from '../product';
+
+function ratingRange(c: AbstractControl): { [key: string]: boolean} | null{
+  if(c.value !== null && (isNaN(c.value) || c.value < 1 || c.value > 5)){
+    return{'range': true};
+  }
+  return null;
+}
 
 @Component({
   selector: 'pm-product',
@@ -19,9 +26,9 @@ export class ProductComponent implements OnInit {
       productName: ['', [Validators.required, Validators.minLength(3)]],
       productCode: ['', [Validators.required, Validators.minLength(8),Validators.maxLength(8)]],
       releaseDate: '',
-      price: [0, [Validators.required]],
+      price: [null, [Validators.required]],
       description: '',
-      //starRating: number;
+      starRating: [null, ratingRange],
       imageUrl: '',
       addImageOption: 'Não'
     });
@@ -34,6 +41,7 @@ export class ProductComponent implements OnInit {
       releaseDate: '10/03/2022',
       price: 0,
       description: 'Descrição teste',
+      starRating: 0,
       imageUrl: 'Url teste',
     })
   }

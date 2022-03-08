@@ -88,9 +88,27 @@
         <div class="col-md-8">
           <input class="form-control"
                  id="descriptionId"
-                 placeholder="Descrição (não obrigatória)"
+                 placeholder="Descrição"
                  formControlName = "description"
                  [ngClass]="{'is-invalid': (productForm.get('description').touched || productForm.get('description').dirty) && !productForm.get('description').valid }" />
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="description">Avaliação sobre o produto</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="starRatingId"
+                 placeholder="Avaliação"
+                 type="number"
+                 formControlName = "starRating"
+                 [ngClass]="{'is-invalid': (productForm.get('starRating').touched || productForm.get('starRating').dirty) && !productForm.get('starRating').valid }" />
+          <span class="invalid-feedback">
+          <span *ngIf="productForm.get('starRating').errors?.range">
+            Sua avaliação de 1 a 5 sobre o produto.
+          </span>
+        </span>
         </div>
       </div>
 

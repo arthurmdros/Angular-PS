@@ -57,6 +57,10 @@ export class ProductComponent implements OnInit {
       imageUrl: '',
       addImageOption: 'Não'
     });
+
+    this.productForm.get('addImageOption').valueChanges.subscribe(
+      value => this.setNotification(value)
+    )
   }
 
   populateTestData(): void{

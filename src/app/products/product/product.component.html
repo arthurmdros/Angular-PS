@@ -8,50 +8,51 @@
           (ngSubmit)="save()"
           [formGroup]="productForm">
 
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="productNameId">Produto</label>
-        <div class="col-md-8">
-          <input class="form-control"
-                 id="productNameId"
-                 type="text"
-                 placeholder="Produto (obrigatório)"
-                 formControlName = "productName"
-                 [ngClass]="{'is-invalid': (productForm.get('productName').touched ||
-                                            productForm.get('productName').dirty) && !
-                                            productForm.get('productName').valid }" />
-          <span class="invalid-feedback">
-            <span *ngIf="productForm.get('productName').errors?.required">
-              Informe o nome do produto.
+      <div formGroupName="productGroup">
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                for="productNameId">Produto</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                  id="productNameId"
+                  type="text"
+                  placeholder="Produto (obrigatório)"
+                  formControlName = "productName"
+                  [ngClass]="{'is-invalid': (productForm.get('productGroup.productName').touched ||
+                                              productForm.get('productGroup.productName').dirty) && !
+                                              productForm.get('productGroup.productName').valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="productForm.get('productGroup.productName').errors?.required">
+                Informe o nome do produto.
+              </span>
+              <span *ngIf="productForm.get('productGroup.productName').errors?.minlength">
+                O nome deve conter pelo menos 3 letras.
+              </span>
             </span>
-            <span *ngIf="productForm.get('productName').errors?.minlength">
-              O nome deve conter pelo menos 3 letras.
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                for="productCodeId">Código</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                  id="productCodeId"
+                  type="text"
+                  placeholder="Código do produto (obrigatório)"
+                  formControlName = "productCode"
+                  [ngClass]="{'is-invalid': (productForm.get('productGroup.productCode').touched || productForm.get('productGroup.productCode').dirty) && !productForm.get('productGroup.productCode').valid }" />
+            <span class="invalid-feedback">
+              <span *ngIf="productForm.get('productGroup.productCode').errors?.required">
+                Informe o código do produto.
+              </span>
+              <span *ngIf="productForm.get('productGroup.productCode').errors?.maxlength || productForm.get('productGroup.productCode').errors?.minlength">
+                O código deve possuir 8 caracteres.
+              </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
-
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="productCodeId">Código</label>
-        <div class="col-md-8">
-          <input class="form-control"
-                 id="productCodeId"
-                 type="text"
-                 placeholder="Código do produto (obrigatório)"
-                 formControlName = "productCode"
-                 [ngClass]="{'is-invalid': (productForm.get('productCode').touched || productForm.get('productCode').dirty) && !productForm.get('productCode').valid }" />
-          <span class="invalid-feedback">
-            <span *ngIf="productForm.get('productCode').errors?.required">
-              Informe o código do produto.
-            </span>
-            <span *ngIf="productForm.get('productCode').errors?.maxlength || productForm.get('productCode').errors?.minlength">
-              O código deve possuir 8 caracteres.
-            </span>
-          </span>
-        </div>
-      </div>
-
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
                for="releaseDate">Data de adição</label>

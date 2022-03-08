@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Product } from '../product';
 
-function ratingRange(c: AbstractControl): { [key: string]: boolean} | null{
-  if(c.value !== null && (isNaN(c.value) || c.value < 1 || c.value > 5)){
-    return{'range': true};
+function ratingRange(min: number, max: number): ValidatorFn{
+  return (c: AbstractControl): { [key: string]: boolean} | null => {
+    if(c.value !== null && (isNaN(c.value) || c.value < min || c.value > max)){
+      return{'range': true};
+    }
+    return null;
   }
-  return null;
 }
 
 @Component({
@@ -23,12 +25,14 @@ export class ProductComponent implements OnInit {
   ngOnInit(){
     this.productForm = this.fb.group({
       //productId: number;
-      productName: ['', [Validators.required, Validators.minLength(3)]],
-      productCode: ['', [Validators.required, Validators.minLength(8),Validators.maxLength(8)]],
+      productGroup: this.fb.group({
+        productName: ['', [Validators.required, Validators.minLength(3)]],
+        productCode: ['', [Validators.required, Validators.minLength(8),Validators.maxLength(8)]],
+      }),
       releaseDate: '',
       price: [null, [Validators.required]],
       description: '',
-      starRating: [null, ratingRange],
+      starRating: [null, ratingRange(1,5)],
       imageUrl: '',
       addImageOption: 'Não'
     });

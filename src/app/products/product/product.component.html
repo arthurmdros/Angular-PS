@@ -6,7 +6,7 @@
   <div class="card-body">
     <form novalidate
           (ngSubmit)="save()"
-          formGroup='productForm'>
+          [formGroup]="productForm">
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
@@ -18,7 +18,7 @@
                  placeholder="Produto (obrigatório)"
                  required
                  minlength="3"
-                 formControlProductName = "productName"
+                 formControlName = "productName"
                  [ngClass]="{'is-invalid': (productForm.get('productName').touched ||
                                             productForm.get('productName').dirty) && !
                                             productForm.get('productName').valid }" />
@@ -43,7 +43,7 @@
                  placeholder="Código do produto (obrigatório)"
                  required
                  maxlength="8"
-                 formControlProductCode = "productCode"
+                 formControlName = "productCode"
                  [ngClass]="{'is-invalid': (productForm.get('productCode').touched || productForm.get('productCode').dirty) && !productForm.get('productCode').valid }" />
           <span class="invalid-feedback">
             <span *ngIf="productForm.get('productCode').errors?.required">
@@ -63,7 +63,7 @@
           <input class="form-control"
                  id="releaseDateId"
                  type="date"
-                 formControlReleaseDate = "releaseDate"
+                 formControlName = "releaseDate"
                  [ngClass]="{'is-invalid': (productForm.get('releaseDate').touched || productForm.get('releaseDate').dirty) && !productForm.get('releaseDate').valid }" />
         </div>
       </div>
@@ -77,7 +77,7 @@
                  placeholder="Preço (obrigatório)"
                  type="number"
                  required
-                 formControlPrice = "price"
+                 formControlName = "price"
                  [ngClass]="{'is-invalid': (productForm.get('price').touched || productForm.get('price').dirty) && !productForm.get('price').valid }" />
           <span class="invalid-feedback">
             <span *ngIf="productForm.get('price').errors?.required">
@@ -94,7 +94,7 @@
           <input class="form-control"
                  id="descriptionId"
                  placeholder="Descrição (não obrigatória)"
-                 formControlDescription = "description"
+                 formControlName = "description"
                  [ngClass]="{'is-invalid': (productForm.get('description').touched || productForm.get('description').dirty) && !productForm.get('description').valid }" />
         </div>
       </div>
@@ -107,6 +107,9 @@
                   [title]="productForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
                   [disabled]="!productForm.valid">
             Salvar
+          </button>
+          <button class="btn btn-outline-secondary" type="button" (click)="populateTestData()">
+            Dados teste
           </button>
         </div>
       </div>

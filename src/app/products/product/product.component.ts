@@ -23,7 +23,27 @@ export class ProductComponent implements OnInit {
       description: new FormControl(),
       //starRating: number;
       //imageUrl: string;
-    });
+   });
+    /*this.productForm = this.fb.group({
+      //productId: number;
+      productName: '',
+      productCode: '',
+      releaseDate: '',
+      price: 0,
+      description: '',
+      //starRating: number;
+      //imageUrl: string;
+    });*/
+  }
+
+  populateTestData(): void{
+    this.productForm.patchValue({
+      productName: 'Produto teste',
+      productCode: 'Código teste',
+      releaseDate: '10/03/2022',
+      price: 0,
+      description: 'Descrição teste',
+    })
   }
 
   save(){

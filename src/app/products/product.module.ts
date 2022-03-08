@@ -6,6 +6,7 @@ import { ConvertsToSpacePipe } from '../shared/converts-to-space.pipe';
 import { ProductDetailsGuard } from '../products/product-details/product-details.guard';
 import { SharedModule } from '../shared/shared.module';
 import { ProductComponent } from './product/product.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { ProductComponent } from './product/product.component';
         canActivate: [ProductDetailsGuard],
         component: ProductDetailsComponent},
     ]),
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class ProductModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Product } from '../product';
 
 @Component({
@@ -16,10 +16,10 @@ export class ProductComponent implements OnInit {
   ngOnInit(){
     this.productForm = this.fb.group({
       //productId: number;
-      productName: '',
-      productCode: '',
+      productName: ['', [Validators.required, Validators.minLength(3)]],
+      productCode: ['', [Validators.required, Validators.minLength(8),Validators.maxLength(8)]],
       releaseDate: '',
-      price: 0,
+      price: [0, [Validators.required]],
       description: '',
       //starRating: number;
       //imageUrl: string;

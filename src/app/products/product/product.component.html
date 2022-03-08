@@ -16,8 +16,6 @@
                  id="productNameId"
                  type="text"
                  placeholder="Produto (obrigatório)"
-                 required
-                 minlength="3"
                  formControlName = "productName"
                  [ngClass]="{'is-invalid': (productForm.get('productName').touched ||
                                             productForm.get('productName').dirty) && !
@@ -41,16 +39,14 @@
                  id="productCodeId"
                  type="text"
                  placeholder="Código do produto (obrigatório)"
-                 required
-                 maxlength="8"
                  formControlName = "productCode"
                  [ngClass]="{'is-invalid': (productForm.get('productCode').touched || productForm.get('productCode').dirty) && !productForm.get('productCode').valid }" />
           <span class="invalid-feedback">
             <span *ngIf="productForm.get('productCode').errors?.required">
               Informe o código do produto.
             </span>
-            <span *ngIf="productForm.get('productCode').errors?.maxlength">
-              O código deve possuir no mínimo 8 caracteres.
+            <span *ngIf="productForm.get('productCode').errors?.maxlength || productForm.get('productCode').errors?.minlength">
+              O código deve possuir 8 caracteres.
             </span>
           </span>
         </div>
@@ -76,7 +72,6 @@
                  id="priceId"
                  placeholder="Preço (obrigatório)"
                  type="number"
-                 required
                  formControlName = "price"
                  [ngClass]="{'is-invalid': (productForm.get('price').touched || productForm.get('price').dirty) && !productForm.get('price').valid }" />
           <span class="invalid-feedback">

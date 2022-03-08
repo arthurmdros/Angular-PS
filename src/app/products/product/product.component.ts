@@ -22,7 +22,8 @@ export class ProductComponent implements OnInit {
       price: [0, [Validators.required]],
       description: '',
       //starRating: number;
-      //imageUrl: string;
+      imageUrl: '',
+      addImageOption: 'Não'
     });
   }
 
@@ -33,7 +34,18 @@ export class ProductComponent implements OnInit {
       releaseDate: '10/03/2022',
       price: 0,
       description: 'Descrição teste',
+      imageUrl: 'Url teste',
     })
+  }
+
+  setNotification(notifyVia: string): void{
+    const imageUrlControl = this.productForm.get('imageUrl');
+    if(notifyVia === 'Sim'){
+      imageUrlControl.setValidators(Validators.required);
+    }else{
+      imageUrlControl.clearValidators();
+    }
+    imageUrlControl.updateValueAndValidity();
   }
 
   save(){

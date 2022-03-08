@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Product } from '../product';
+import { debounceTime } from 'rxjs/operators';
 
 /*function emailMatcher(c: AbstractControl): { [key: string]: boolean} | null {
   const emailControl = c.get('email');
@@ -34,6 +35,12 @@ function ratingRange(min: number, max: number): ValidatorFn{
 export class ProductComponent implements OnInit {
   productForm: FormGroup;
   product = new Product();
+  productNameMessage: string;
+
+  private validationMessages = {
+    required: 'Informe o nome do produto.',
+    minlength: 'O nome deve conter pelo menos 3 letras.',
+  }
 
   constructor(private fb: FormBuilder) {}
 
@@ -60,6 +67,13 @@ export class ProductComponent implements OnInit {
 
     this.productForm.get('addImageOption').valueChanges.subscribe(
       value => this.setNotification(value)
+    )
+
+    const productNameControl = this.productForm.get('productGroup.productName');
+    productNameControl.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe(
+      value => this.setMessage(productNameControl)
     )
   }
 
@@ -88,6 +102,14 @@ export class ProductComponent implements OnInit {
   save(){
     console.log(this.productForm);
     console.log('Saved: ' + JSON.stringify(this.productForm.value));
+  }
+
+  setMessage(c: AbstractControl): void{
+    this.productNameMessage = '';
+    if((c.touched || c.dirty) && c.errors){
+      this.productNameMessage = Object.keys(c.errors).map(
+        key => this.validationMessages[key]).join(' ');
+    }
   }
 
 }

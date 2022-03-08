@@ -18,16 +18,9 @@
                   type="text"
                   placeholder="Produto (obrigatório)"
                   formControlName = "productName"
-                  [ngClass]="{'is-invalid': (productForm.get('productGroup.productName').touched ||
-                                              productForm.get('productGroup.productName').dirty) && !
-                                              productForm.get('productGroup.productName').valid }" />
+                  [ngClass]="{'is-invalid': productNameMessage}" />
             <span class="invalid-feedback">
-              <span *ngIf="productForm.get('productGroup.productName').errors?.required">
-                Informe o nome do produto.
-              </span>
-              <span *ngIf="productForm.get('productGroup.productName').errors?.minlength">
-                O nome deve conter pelo menos 3 letras.
-              </span>
+              {{ productNameMessage }}
             </span>
           </div>
         </div>

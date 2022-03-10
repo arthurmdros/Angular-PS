@@ -50,8 +50,11 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
           minlength: 'O código deve conter 8 caracteres',
           maxlength: 'O código deve conter 8 caracteres'
         },
+        price:{
+          required: 'Preço do produto é obrigatório (Somente números)',
+        },
         starRating: {
-          range: 'Avaliação deve ser entre 1 (mínimo) e 5 (máximo).'
+          range: 'Avaliação deve ser entre 1 (mínimo) e 5 (máximo) (Somente números)',
         }
     };
 
@@ -64,7 +67,8 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.productForm = this.fb.group({
       productName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       productCode: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-      starRating: ['', NumberValidators.range(1, 5)],
+      price: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      starRating: ['', [NumberValidators.range(1, 5), Validators.pattern("^[0-9]*$")]],
       tags: this.fb.array([]),
       description: '',
       imageUrl: '',
@@ -121,6 +125,7 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.productForm.patchValue({
       productName: this.product.productName,
       productCode: this.product.productCode,
+      price: this.product.price,
       starRating: this.product.starRating,
       description: this.product.description
     });

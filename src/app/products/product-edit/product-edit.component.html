@@ -42,12 +42,28 @@
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
+               for="priceId">Preço</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="priceId"
+                 type="number"
+                 placeholder="Preço (obrigatório)"
+                 formControlName="price"
+                 [ngClass]="{'is-invalid': displayMessage.price}" />
+          <span class="invalid-feedback">
+            {{displayMessage.price}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
                for="starRatingId">Avaliação (1-5)</label>
 
         <div class="col-md-8">
           <input class="form-control"
                  id="starRatingId"
-                 type="text"
+                 type="number"
                  placeholder="Avaliação (1-5)"
                  formControlName="starRating"
                  [ngClass]="{'is-invalid': displayMessage.starRating}" />

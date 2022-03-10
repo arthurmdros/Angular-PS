@@ -15,13 +15,11 @@ export class ProductsService {
   constructor(private http:HttpClient) {}
 
   getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.productUrl).pipe(
-      retry(2),
-      catchError((error: HttpErrorResponse) => {
-        console.error(error);
-        return throwError(error);
-      })
-    );
+    return this.http.get<IProduct[]>(this.productUrl)
+      .pipe(
+        tap(data => console.log(JSON.stringify(data))),
+        catchError(this.handleError)
+      );
   }
 
   getProduct(id : number): Observable<IProduct>{
@@ -48,17 +46,37 @@ export class ProductsService {
       );
   }
 
+  listProductsActivated(): Observable<IProduct>{
+    const headers = new HttpHeaders({ 'isActive': 'false'});
+    return this.http.get<IProduct>(this.productUrl, {headers: headers})
+      .pipe(
+        tap(data => console.log(JSON.stringify(data))),
+        catchError(this.handleError)
+      )
+  }
+
+  deleteProduct(id: number): Observable<{}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.productUrl}/${id}`;
+    return this.http.delete<IProduct>(url, { headers })
+      .pipe(
+        tap(data => console.log('deleteProduct: ' + id)),
+        catchError(this.handleError)
+      );
+  }
+
   updateProduct(product: IProduct): Observable<IProduct> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.productUrl}/${product.id}`;
     return this.http.put<IProduct>(url, product, { headers })
       .pipe(
         tap(() => console.log('updateProduct: ' + product.id)),
-        // Return the product on an update
         map(() => product),
         catchError(this.handleError)
       );
   }
+
+
 
   private handleError(err: HttpErrorResponse){
     let errorMessage = '';
@@ -82,7 +100,8 @@ export class ProductsService {
       description: null,
       starRating: null,
       imageUrl: null,
-      tags: ['']
+      tags: [''],
+      isActive: true
     }
   }
 }

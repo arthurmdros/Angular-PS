@@ -68,7 +68,7 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
       productName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       productCode: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
       price: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      starRating: ['', [NumberValidators.range(1, 5), Validators.pattern("^[0-9]*$")]],
+      starRating: ['', [NumberValidators.range(1, 5), , Validators.pattern("^[0-9]*$")]],
       tags: this.fb.array([]),
       description: '',
       imageUrl: '',
@@ -96,7 +96,7 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
       .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
     merge(this.productForm.valueChanges, ...controlBlurs).pipe(
-      debounceTime(1000)
+      debounceTime(800)
     ).subscribe(value => {
       this.displayMessage = this.genericValidator.processMessages(this.productForm);
     });
@@ -169,7 +169,17 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   deleteProduct(): void {
-    console.log("Remover produto")
+    if(this.product.id === 0){
+      this.onSaveComplete();
+    }else{
+      if(confirm(`Deseja deletar o produto? : ${this.product.productName}`)){
+        this.productService.deleteProduct(this.product.id)
+          .subscribe({
+            next: () => this.onSaveComplete(),
+            error: err => this.errorMessage = err
+          })
+      }
+    }
   }
 
   addTag(): void {

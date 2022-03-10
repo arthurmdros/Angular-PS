@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8" id="htmlData">
+      <table class="table table-bordered">
+        <tr class="table-primary">
+          <th>Id</th>
+          <th>Produto</th>
+          <th>Código</th>
+          <th>Disponível</th>
+          <th>Preço</th>
+          <th>Avaliação</th>
+          <th>Descrição</th>
+        </tr>
+        <tr *ngFor="let product of PRODUCTS">
+          <th>{{product.Id}}</th>
+          <td>{{product.productName}}</td>
+          <td>{{product.productCode}}</td>
+          <td>{{product.releaseDate}}</td>
+          <td>{{product.price}}</td>
+          <td>{{product.starRating}}</td>
+          <td>{{product.description}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-4 text-right">
+      <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+    </div>
+  </div>
+</div>

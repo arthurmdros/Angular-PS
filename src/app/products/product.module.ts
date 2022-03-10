@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { Product } from './product';
 import { ProductEditComponent } from './product-edit/product-edit.component';
+import { PdfGeneratorComponent } from '../shared/pdf-generator/pdf-generator.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
   imports: [
     RouterModule.forChild([
         //{path: 'products/new', component: ProductComponent},
+        {path: 'products/pdf', component: PdfGeneratorComponent},
         {path: 'products', component: ProductListComponent},
         {path: 'products/:id/edit', component: ProductEditComponent}, //:id
         {path: 'products/:id',

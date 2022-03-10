@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormControl } from '@angular/forms';
 import { Product } from '../product';
 import { debounceTime } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ProductsService } from '../../services/products.service';
 
 /*function emailMatcher(c: AbstractControl): { [key: string]: boolean} | null {
   const emailControl = c.get('email');
@@ -37,12 +39,22 @@ export class ProductComponent implements OnInit {
   product = new Product();
   productNameMessage: string;
 
+  pageTitle = 'Novo produto';
+  errorMessage = '';
+
+  displayMessage: { [key: string]: string } = {};
+
+  get tags(): FormArray {
+    return this.productForm.get('tags') as FormArray;
+  }
+
   private validationMessages = {
     required: 'Informe o nome do produto.',
     minlength: 'O nome deve conter pelo menos 3 letras.',
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private route: ActivatedRoute,
+    private router: Router, private productService: ProductsService) {}
 
   ngOnInit(){
     this.productForm = this.fb.group({
@@ -99,7 +111,7 @@ export class ProductComponent implements OnInit {
     imageUrlControl.updateValueAndValidity();
   }
 
-  save(){
+  saveProduct(){
     console.log(this.productForm);
     console.log('Saved: ' + JSON.stringify(this.productForm.value));
   }
@@ -111,5 +123,19 @@ export class ProductComponent implements OnInit {
         key => this.validationMessages[key]).join(' ');
     }
   }
+  addTag(): void {
+    this.tags.push(new FormControl());
+  }
+
+  deleteTag(index: number): void {
+    this.tags.removeAt(index);
+    this.tags.markAsDirty();
+  }
+
+  onSaveComplete(): void {
+    this.productForm.reset();
+    this.router.navigate(['/products']);
+  }
+
 
 }

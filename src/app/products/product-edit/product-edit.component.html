@@ -10,12 +10,12 @@
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
-               for="productNameId">Product Name</label>
+               for="productNameId">Nome</label>
         <div class="col-md-8">
           <input class="form-control"
                  id="productNameId"
                  type="text"
-                 placeholder="Name (required)"
+                 placeholder="Nome (obrigatório)"
                  formControlName="productName"
                  [ngClass]="{'is-invalid': displayMessage.productName }" />
           <span class="invalid-feedback">
@@ -26,12 +26,12 @@
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
-               for="productCodeId">Product Code</label>
+               for="productCodeId">Código</label>
         <div class="col-md-8">
           <input class="form-control"
                  id="productCodeId"
                  type="text"
-                 placeholder="Code (required)"
+                 placeholder="Código (obrigatório)"
                  formControlName="productCode"
                  [ngClass]="{'is-invalid': displayMessage.productCode}" />
           <span class="invalid-feedback">
@@ -42,13 +42,13 @@
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
-               for="starRatingId">Star Rating (1-5)</label>
+               for="starRatingId">Avaliação (1-5)</label>
 
         <div class="col-md-8">
           <input class="form-control"
                  id="starRatingId"
                  type="text"
-                 placeholder="Rating (1-5)"
+                 placeholder="Avaliação (1-5)"
                  formControlName="starRating"
                  [ngClass]="{'is-invalid': displayMessage.starRating}" />
           <span class="invalid-feedback">
@@ -73,7 +73,7 @@
           <button class="col-md-1 btn btn-outline-warning btn-sm"
                   type="button"
                   title="Delete this search tag"
-                  (click)="deleteTag(i)">Delete Tag
+                  (click)="deleteTag(i)">Remover Tag
           </button>
         </div>
       </div>
@@ -83,19 +83,19 @@
           <button class="btn btn-outline-secondary btn-sm"
                   type="button"
                   title="Add a search tag"
-                  (click)="addTag()">Add Tag
+                  (click)="addTag()">Nova Tag
           </button>
         </div>
       </div>
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
-               for="descriptionId">Description</label>
+               for="descriptionId">Descrição</label>
 
         <div class="col-md-8">
           <textarea class="form-control"
                     id="descriptionId"
-                    placeholder="Description"
+                    placeholder="Descrição"
                     rows=3
                     formControlName="description"
                     [ngClass]="{'is-invalid': displayMessage.description}"></textarea>
@@ -104,6 +104,50 @@
           </span>
         </div>
       </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="description">Adicionar imagem</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="imageUrlId"
+                 type="text"
+                 placeholder="Imagem"
+                 formControlName = "imageUrl"
+                 [ngClass]="{'is-invalid': (productForm.get('imageUrl').touched || productForm.get('imageUrl').dirty) && !productForm.get('imageUrl').valid }" />
+          <span class="invalid-feedback">
+          <span *ngIf="productForm.get('imageUrl').errors?.required">
+            Informe a imagem do produto.
+          </span>
+        </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label pt-0"
+               for="description">Deseja adicionar uma imagem?</label>
+        <div class="col-md-8">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                type="radio"
+                value="Sim"
+                formControlName = "addImageOption"
+                > Sim
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                type="radio"
+                value="Não"
+                formControlName = "addImageOption"
+                > Não
+            </label>
+          </div>
+        </div>
+      </div>
+
 
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">

@@ -7,11 +7,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { NumberValidators } from '../../shared/number.validator';
 import { debounceTime } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'pm-product-edit',
   templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.css']
+  styleUrls: ['./product-edit.component.css'],
+  providers: [DatePipe]
 })
 export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -20,6 +22,8 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
   pageTitle = 'Atualizar informações';
   errorMessage = '';
   productForm!: FormGroup;
+  dateNow = new Date();
+  releaseDate = '';
 
   product!: IProduct;
   private sub: Subscription;
@@ -33,7 +37,8 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
-    private router: Router, private productService: ProductsService) {
+    private router: Router, private productService: ProductsService,
+    private datePipe: DatePipe) {
       this.validationMessages = {
         productName: {
           required: 'Nome do produto é obrigatório.',
@@ -51,6 +56,8 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     this.genericValidator = new GenericValidator(this.validationMessages);
+
+    this.releaseDate = this.datePipe.transform(this.dateNow, 'dd/MM/yyyy');
   }
 
   ngOnInit(): void {
@@ -59,7 +66,9 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
       productCode: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
       starRating: ['', NumberValidators.range(1, 5)],
       tags: this.fb.array([]),
-      description: ''
+      description: '',
+      imageUrl: '',
+      addImageOption: 'Não'
     });
 
     this.sub = this.route.paramMap.subscribe(
@@ -68,6 +77,10 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.getProduct(id);
       }
     );
+
+    this.productForm.get('addImageOption').valueChanges.subscribe(
+      value => this.setNotification(value)
+    )
   }
 
   ngOnDestroy(): void {
@@ -120,18 +133,34 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
         const p = { ...this.product, ...this.productForm.value };
 
         if(p.id === 0){
-          this.productService.createProduct(p)
+          this.productService.createProduct(p, this.releaseDate)
             .subscribe({
               next: p => {console.log(p); return this.onSaveComplete();},
               error: err => this.errorMessage = err
             });
         } else {
-          this.productService.updateProduct();
+          this.productService.updateProduct(p)
+            .subscribe({
+              next: () => this.onSaveComplete(),
+              error: err => this.errorMessage = err
+            });
         }
       } else {
+        this.onSaveComplete();
+      }
+    } else {
         this.errorMessage = 'Por-favor, corrija os erros exibidos!'
       }
+  }
+
+  setNotification(notifyVia: string): void{
+    const imageUrlControl = this.productForm.get('imageUrl');
+    if(notifyVia === 'Sim'){
+      imageUrlControl.setValidators(Validators.required);
+    }else{
+      imageUrlControl.clearValidators();
     }
+    imageUrlControl.updateValueAndValidity();
   }
 
   deleteProduct(): void {
@@ -151,5 +180,4 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.productForm.reset();
     this.router.navigate(['/products']);
   }
-
 }

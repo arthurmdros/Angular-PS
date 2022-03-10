@@ -170,22 +170,22 @@
           <button class="btn btn-primary mr-3"
                   style="width:80px;"
                   type="submit"
-                  [title]="productForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [title]="productForm.valid ? 'Salvar' : 'Campos pendentes de validação'"
                   [disabled]="!productForm.valid">
             Salvar
           </button>
           <button class="btn btn-outline-secondary mr-3"
                   style="width:100px; margin-left: 20px;"
                   type="button"
-                  title="Cancel your edits"
+                  title="Cancelar alterações"
                   [routerLink]="['/products']">
             Cancelar
           </button>
           <button class="btn btn-outline-warning"
                   style="width:100px; margin-left: 20px;"
                   type="button"
-                  title="Delete this product"
-                  (click)="deleteProduct()">
+                  title="Apagar produto"
+                  (click)="changeStatus()">
             Remover
           </button>
         </div>

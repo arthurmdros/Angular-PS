@@ -67,8 +67,8 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.productForm = this.fb.group({
       productName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       productCode: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-      price: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      starRating: ['', [NumberValidators.range(1, 5), , Validators.pattern("^[0-9]*$")]],
+      price: ['', [Validators.required, Validators.pattern("^[0-9.]*$")]],
+      starRating: ['', [NumberValidators.range(1,5), Validators.pattern("^[0-9.]*$")]],
       tags: this.fb.array([]),
       description: '',
       imageUrl: '',
@@ -127,7 +127,8 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
       productCode: this.product.productCode,
       price: this.product.price,
       starRating: this.product.starRating,
-      description: this.product.description
+      description: this.product.description,
+      imageUrl: this.product.imageUrl,
     });
     this.productForm.setControl('tags', this.fb.array(this.product.tags || []));
   }
@@ -154,7 +155,7 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.onSaveComplete();
       }
     } else {
-        this.errorMessage = 'Por-favor, corrija os erros exibidos!'
+        this.errorMessage = 'Por-favor, corrija os erros exibidos!';
       }
   }
 
@@ -171,8 +172,8 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
   deleteProduct(): void {
     if(this.product.id === 0){
       this.onSaveComplete();
-    }else{
-      if(confirm(`Deseja deletar o produto? : ${this.product.productName}`)){
+    }else if(this.product.id){
+      if(confirm(`Deseja deletar o produto? : ${this.product.productName} ?`)){
         this.productService.deleteProduct(this.product.id)
           .subscribe({
             next: () => this.onSaveComplete(),
@@ -181,6 +182,21 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
+
+  changeStatus(): void{
+    if(this.product.id === 0){
+      this.onSaveComplete();
+    }else if(this.product.id){
+      if(confirm(`Deseja deletar o produto? : ${this.product.productName} ?`)){
+      this.productService.changeStatus(this.product)
+        .subscribe({
+          next: () => this.onSaveComplete(),
+          error: err => this.errorMessage = err
+        });
+      }
+    }
+  }
+
 
   addTag(): void {
     this.tags.push(new FormControl());

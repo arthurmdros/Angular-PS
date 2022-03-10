@@ -17,7 +17,7 @@ export class ProductsService {
   getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(this.productUrl)
       .pipe(
-        tap(data => console.log(JSON.stringify(data))),
+        tap(data => console.log('getProducts: '+ JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
@@ -46,21 +46,24 @@ export class ProductsService {
       );
   }
 
-  listProductsActivated(): Observable<IProduct>{
-    const headers = new HttpHeaders({ 'isActive': 'false'});
-    return this.http.get<IProduct>(this.productUrl, {headers: headers})
-      .pipe(
-        tap(data => console.log(JSON.stringify(data))),
-        catchError(this.handleError)
-      )
-  }
-
   deleteProduct(id: number): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.productUrl}/${id}`;
     return this.http.delete<IProduct>(url, { headers })
       .pipe(
         tap(data => console.log('deleteProduct: ' + id)),
+        catchError(this.handleError)
+      );
+  }
+
+  changeStatus(product: IProduct): Observable<IProduct> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.productUrl}/${product.id}`;
+    product.isActive = false;
+    return this.http.put<IProduct>(url, product, { headers })
+      .pipe(
+        tap(() => console.log('changeStatus: ' + product.isActive)),
+        map(() => product),
         catchError(this.handleError)
       );
   }
@@ -75,8 +78,6 @@ export class ProductsService {
         catchError(this.handleError)
       );
   }
-
-
 
   private handleError(err: HttpErrorResponse){
     let errorMessage = '';

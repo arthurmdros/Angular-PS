@@ -15,7 +15,8 @@ export class Product implements InMemoryDbService {
         price: 19.95,
         starRating: 3.2,
         imageUrl: 'assets/images/leaf_rake.png',
-        tags: ['rake', 'leaf', 'yard', 'home']
+        tags: ['rake', 'leaf', 'yard', 'home'],
+        isActive: true,
       },
       {
         id: 2,
@@ -25,7 +26,8 @@ export class Product implements InMemoryDbService {
         description: '15 gallon capacity rolling garden cart',
         price: 32.99,
         starRating: 4.2,
-        imageUrl: 'assets/images/garden_cart.png'
+        imageUrl: 'assets/images/garden_cart.png',
+        isActive: true,
       },
       {
         id: 5,
@@ -36,7 +38,8 @@ export class Product implements InMemoryDbService {
         price: 8.9,
         starRating: 4.8,
         imageUrl: 'assets/images/hammer.png',
-        tags: ['tools', 'hammer', 'construction']
+        tags: ['tools', 'hammer', 'construction'],
+        isActive: true,
       },
       {
         id: 8,
@@ -46,7 +49,8 @@ export class Product implements InMemoryDbService {
         description: '15-inch steel blade hand saw',
         price: 11.55,
         starRating: 3.7,
-        imageUrl: 'assets/images/saw.png'
+        imageUrl: 'assets/images/saw.png',
+        isActive: true,
       },
       {
         id: 10,
@@ -56,7 +60,8 @@ export class Product implements InMemoryDbService {
         description: 'Standard two-button video game controller',
         price: 35.95,
         starRating: 4.6,
-        imageUrl: 'assets/images/xbox-controller.png'
+        imageUrl: 'assets/images/xbox-controller.png',
+        isActive: false,
       }
     ];
     return { products };

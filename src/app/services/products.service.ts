@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry, tap } from 'rxjs/operators';
+import { catchError, map, retry, tap } from 'rxjs/operators';
 
 import { IProduct } from '../products/entity';
 
@@ -36,9 +36,10 @@ export class ProductsService {
       )
   }
 
-  createProduct(product: IProduct): Observable<IProduct> {
+  createProduct(product: IProduct, date: string): Observable<IProduct> {
     const headers = new HttpHeaders({ 'Content-Type': 'aplication/json'});
     product.id = null;
+    product.releaseDate = date;
 
     return this.http.post<IProduct>(this.productUrl, product, {headers: headers})
       .pipe(
@@ -47,8 +48,16 @@ export class ProductsService {
       );
   }
 
-  updateProduct(): void {
-    console.log('Atualizar produto')
+  updateProduct(product: IProduct): Observable<IProduct> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.productUrl}/${product.id}`;
+    return this.http.put<IProduct>(url, product, { headers })
+      .pipe(
+        tap(() => console.log('updateProduct: ' + product.id)),
+        // Return the product on an update
+        map(() => product),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(err: HttpErrorResponse){

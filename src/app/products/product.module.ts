@@ -9,18 +9,21 @@ import { ProductComponent } from './product/product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { Product } from './product';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductDetailsComponent,
     ConvertsToSpacePipe,
-    ProductComponent
+    ProductComponent,
+    ProductEditComponent
   ],
   imports: [
     RouterModule.forChild([
         {path: 'products/new', component: ProductComponent},
         {path: 'products', component: ProductListComponent},
+        {path: 'products/edit', component: ProductEditComponent}, //:id
         {path: 'products/:id',
         canActivate: [ProductDetailsGuard],
         component: ProductDetailsComponent},

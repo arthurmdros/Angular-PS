@@ -39,6 +39,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
       product.productName.toLocaleLowerCase().includes(filterBY));
   }
 
+    performFilter2(filterBy: string): IProduct[] {
+      filterBy = filterBy.toLocaleLowerCase();
+      return this.products.filter((product: IProduct) =>
+        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+          (product.tags && product.tags.some(tag => tag.toLocaleLowerCase().indexOf(filterBy) !== -1)));
+    }
+
   constructor(private productService:ProductsService) { }
 
   ngOnDestroy(): void {

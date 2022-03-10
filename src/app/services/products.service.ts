@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, retry, tap } from 'rxjs/operators';
 
 import { IProduct } from '../products/entity';
 
@@ -10,15 +10,30 @@ import { IProduct } from '../products/entity';
 })
 export class ProductsService {
 
-  private productUrl = 'api/products/products.json';
+  private productUrl = 'api/products';
 
   constructor(private http:HttpClient) {}
 
-  getProducts(): Observable<IProduct[]>{
+  getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(this.productUrl).pipe(
-      tap(data => console.log('ALL', JSON.stringify(data))),
-      catchError(this.handleError)
+      retry(2),
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
     );
+  }
+
+  getProduct(id : number): Observable<IProduct>{
+    if (id === 0){
+      return of(this.initializeProduct());
+    }
+    const url = `${this.productUrl}/${id}`;
+    return this.http.get<IProduct>(url)
+      .pipe(
+        tap(data => console.log('getProduct: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      )
   }
 
   private handleError(err: HttpErrorResponse){
@@ -31,5 +46,19 @@ export class ProductsService {
 
     console.error(errorMessage);
     return throwError(errorMessage);
+  }
+
+  private initializeProduct(): IProduct{
+    return {
+      id: 0,
+      productName: null,
+      productCode: null,
+      releaseDate: null,
+      price: null,
+      description: null,
+      starRating: null,
+      imageUrl: null,
+      tags: ['']
+    }
   }
 }

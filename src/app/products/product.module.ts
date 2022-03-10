@@ -21,7 +21,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
   ],
   imports: [
     RouterModule.forChild([
-        {path: 'products/new', component: ProductComponent},
+        //{path: 'products/new', component: ProductComponent},
         {path: 'products', component: ProductListComponent},
         {path: 'products/:id/edit', component: ProductEditComponent}, //:id
         {path: 'products/:id',

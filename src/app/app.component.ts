@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
     <ul class="nav nav-pills">
       <li><a class="nav-link" routerLink="/welcome">Home</a></li>
       <li><a class="nav-link" routerLink="/products">Produtos</a></li>
-      <li><a class="nav-link" routerLink="/products/new">Novo Produto</a></li>
+      <li><a class="nav-link" routerLink="/products/0/edit">Novo Produto</a></li>
     </ul>
   </nav>
   <div class="container">

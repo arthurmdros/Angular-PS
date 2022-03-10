@@ -23,7 +23,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
     RouterModule.forChild([
         {path: 'products/new', component: ProductComponent},
         {path: 'products', component: ProductListComponent},
-        {path: 'products/edit', component: ProductEditComponent}, //:id
+        {path: 'products/:id/edit', component: ProductEditComponent}, //:id
         {path: 'products/:id',
         canActivate: [ProductDetailsGuard],
         component: ProductDetailsComponent},

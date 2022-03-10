@@ -56,7 +56,14 @@
             <td>
               <pm-star [rating]='product.starRating'
                (ratingClicked)="onRatingClicked($event)">
-              </pm-star></td>
+              </pm-star>
+            </td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm"
+                      [routerLink]="['/products', product.id, 'edit']">
+                Editar
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

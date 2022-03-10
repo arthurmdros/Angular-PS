@@ -7,7 +7,7 @@ export class Product implements InMemoryDbService {
   createDb(): { products: IProduct[]} {
     const products: IProduct[] = [
       {
-        productId: 1,
+        id: 1,
         productName: 'Leaf Rake',
         productCode: 'GDN-0011',
         releaseDate: 'March 19, 2018',
@@ -18,7 +18,7 @@ export class Product implements InMemoryDbService {
         tags: ['rake', 'leaf', 'yard', 'home']
       },
       {
-        productId: 2,
+        id: 2,
         productName: 'Garden Cart',
         productCode: 'GDN-0023',
         releaseDate: 'March 18, 2018',
@@ -28,7 +28,7 @@ export class Product implements InMemoryDbService {
         imageUrl: 'assets/images/garden_cart.png'
       },
       {
-        productId: 5,
+        id: 5,
         productName: 'Hammer',
         productCode: 'TBX-0048',
         releaseDate: 'May 21, 2018',
@@ -39,7 +39,7 @@ export class Product implements InMemoryDbService {
         tags: ['tools', 'hammer', 'construction']
       },
       {
-        productId: 8,
+        id: 8,
         productName: 'Saw',
         productCode: 'TBX-0022',
         releaseDate: 'May 15, 2018',
@@ -49,7 +49,7 @@ export class Product implements InMemoryDbService {
         imageUrl: 'assets/images/saw.png'
       },
       {
-        productId: 10,
+        id: 10,
         productName: 'Video Game Controller',
         productCode: 'GMG-0042',
         releaseDate: 'October 15, 2018',

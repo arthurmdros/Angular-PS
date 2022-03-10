@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
@@ -34,6 +34,21 @@ export class ProductsService {
         tap(data => console.log('getProduct: ' + JSON.stringify(data))),
         catchError(this.handleError)
       )
+  }
+
+  createProduct(product: IProduct): Observable<IProduct> {
+    const headers = new HttpHeaders({ 'Content-Type': 'aplication/json'});
+    product.id = null;
+
+    return this.http.post<IProduct>(this.productUrl, product, {headers: headers})
+      .pipe(
+        tap(data => console.log('CreateProduct: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
+
+  updateProduct(): void {
+    console.log('Atualizar produto')
   }
 
   private handleError(err: HttpErrorResponse){

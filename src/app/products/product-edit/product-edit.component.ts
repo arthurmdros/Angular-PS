@@ -41,7 +41,9 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
           maxlength: 'O nome não pode exceder pelo menos 50 letras.'
         },
         productCode: {
-          required: 'Código do produto é obrigatório.'
+          required: 'Código do produto é obrigatório.',
+          minlength: 'O código deve conter 8 caracteres',
+          maxlength: 'O código deve conter 8 caracteres'
         },
         starRating: {
           range: 'Avaliação deve ser entre 1 (mínimo) e 5 (máximo).'
@@ -54,7 +56,7 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.productForm = this.fb.group({
       productName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      productCode: ['', Validators.required],
+      productCode: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
       starRating: ['', NumberValidators.range(1, 5)],
       tags: this.fb.array([]),
       description: ''
@@ -113,9 +115,24 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   saveProduct(): void {
-    console.log("Salvar produto")
-  }
+    if(this.productForm.valid){
+      if(this.productForm.dirty){
+        const p = { ...this.product, ...this.productForm.value };
 
+        if(p.id === 0){
+          this.productService.createProduct(p)
+            .subscribe({
+              next: p => {console.log(p); return this.onSaveComplete();},
+              error: err => this.errorMessage = err
+            });
+        } else {
+          this.productService.updateProduct();
+        }
+      } else {
+        this.errorMessage = 'Por-favor, corrija os erros exibidos!'
+      }
+    }
+  }
 
   deleteProduct(): void {
     console.log("Remover produto")

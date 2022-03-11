@@ -1,23 +1,30 @@
-import { Component } from '@angular/core';
-
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'pm-root',
-  template: `
-  <nav class="navbar navbar-expand navbar-light bg-light">
-    <a class="navbar-brand">{{pageTitle}}</a>
-    <ul class="nav nav-pills">
-      <li><a class="nav-link" routerLink="/welcome">Home</a></li>
-      <li><a class="nav-link" routerLink="/products">Produtos</a></li>
-      <li><a class="nav-link" routerLink="/products/0/edit">Novo Produto</a></li>
-    </ul>
-  </nav>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-  `
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 
 export class AppComponent{
   pageTitle: string = "Gerenciador de Produtos"
+
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav;
+
+  constructor(private observer: BreakpointObserver) {}
+
+  ngAfterViewInit() {
+    this.observer.observe(['(max-width: 800px)']).subscribe((res) => {
+      if (res.matches) {
+        this.sidenav.mode = 'over';
+        this.sidenav.close();
+      } else {
+        this.sidenav.mode = 'side';
+        this.sidenav.open();
+      }
+    });
+  }
 }

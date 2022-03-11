@@ -1,0 +1,20 @@
+<div className="pagination-container">
+  <div className="pagination-box">
+
+  <button mat-button color="primary"
+    [disabled]="page === 0"
+    class="toggle-button-navbar mat-icon-button"
+    fxHide.lt-sm
+    (click)="handlePageClick('minus')" >
+    <mat-icon aria-hidden="false" aria-label="Anterior">arrow_back_ios_new</mat-icon>
+  </button>
+    {{page + 1}}
+  <button mat-button color="primary"
+    class="toggle-button-navbar mat-icon-button"
+    fxHide.lt-sm
+    (click)="handlePageClick('plus')"  >
+  <mat-icon aria-hidden="false" aria-label="Próxima" >arrow_forward_ios_new</mat-icon>
+  </button>
+
+  </div>
+</div>

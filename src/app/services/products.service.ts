@@ -38,7 +38,8 @@ export class ProductsService {
     const headers = new HttpHeaders({ 'Content-Type': 'aplication/json'});
     product.id = null;
     product.releaseDate = date;
-
+    product.isActive = true;
+    
     return this.http.post<IProduct>(this.productUrl, product, {headers: headers})
       .pipe(
         tap(data => console.log('CreateProduct: ' + JSON.stringify(data))),

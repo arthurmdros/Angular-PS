@@ -5,7 +5,19 @@ import { IProduct } from './entity';
 export class Product implements InMemoryDbService {
 
   createDb(): { products: IProduct[]} {
-    const products: IProduct[] = [
+    const products: IProduct[] =[ {
+        id: 1,
+        productName: 'Leaf Rake',
+        productCode: 'GDN-0011',
+        releaseDate: 'March 19, 2018',
+        description: 'Leaf rake with 48-inch wooden handle',
+        price: 19.95,
+        starRating: 3.2,
+        imageUrl: 'assets/images/leaf_rake.png',
+        tags: ['rake', 'leaf', 'yard', 'home'],
+        isActive: true,
+      }]
+    /*const products: IProduct[] = [
       {
         id: 1,
         productName: 'Leaf Rake',
@@ -63,7 +75,7 @@ export class Product implements InMemoryDbService {
         imageUrl: 'assets/images/xbox-controller.png',
         isActive: false,
       }
-    ];
+    ];*/
     return { products };
   }
 }

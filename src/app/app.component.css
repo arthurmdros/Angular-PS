@@ -33,3 +33,8 @@ mat-icon {
 mat-sidenav-container {
   height: calc(100vh - 65px);
 }
+
+div.content.mat-elevation-z8 {
+  height: 100%;
+  padding: 10px;
+}

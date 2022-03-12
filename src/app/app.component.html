@@ -1,9 +1,11 @@
 <mat-toolbar class="mat-elevation-z8" color="primary">
-  <button mat-icon-button *ngIf="sidenav.mode === 'side'" (click)="sidenav.toggle()">
-      <mat-icon *ngIf="!sidenav.opened">
+  <button mat-icon-button *ngIf="opened === false" (click)="opened =! opened">
+      <mat-icon *ngIf="!opened">
           menu
       </mat-icon>
-      <mat-icon *ngIf="sidenav.opened">
+    </button>
+  <button mat-icon-button *ngIf="opened === true" (click)="opened =! opened">
+      <mat-icon *ngIf="opened">
           close
       </mat-icon>
   </button>
@@ -11,7 +13,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-    <mat-sidenav #sidenav="matSidenav"  class="mat-elevation-z8">
+    <mat-sidenav [(opened)] = "opened">
       <button mat-button class="menu-button" routerLink="/welcome">
         <mat-icon>home</mat-icon>
         <span>Home</span>

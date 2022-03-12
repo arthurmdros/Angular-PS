@@ -1,6 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component  } from '@angular/core';
 
 @Component({
   selector: 'pm-root',
@@ -11,6 +9,10 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class AppComponent{
   pageTitle: string = "Gerenciador de Produtos"
 
+  opened = false;
+
+  constructor() {}
+  /*
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
@@ -25,6 +27,5 @@ export class AppComponent{
         this.sidenav.mode = 'side';
         this.sidenav.open();
       }
-    });
-  }
+    });*/
 }

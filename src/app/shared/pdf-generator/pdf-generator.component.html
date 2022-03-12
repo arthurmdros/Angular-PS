@@ -11,8 +11,8 @@
           <th>Avaliação</th>
           <th>Descrição</th>
         </tr>
-        <tr *ngFor="let product of PRODUCTS">
-          <th>{{product.Id}}</th>
+        <tr *ngFor="let product of products">
+          <th>{{product.id}}</th>
           <td>{{product.productName}}</td>
           <td>{{product.productCode}}</td>
           <td>{{product.releaseDate}}</td>
@@ -22,7 +22,7 @@
         </tr>
       </table>
     </div>
-    <div class="col-md-4 text-right">
+    <div>
       <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
     </div>
   </div>

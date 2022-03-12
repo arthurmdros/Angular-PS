@@ -11,7 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
   declarations: [
     StarComponent,
     PdfGeneratorComponent,
-    PaginatorComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,

@@ -19,12 +19,16 @@
         <span>Home</span>
       </button>
       <button mat-button class="menu-button" routerLink="/products">
-          <mat-icon>fact_check</mat-icon>
+          <mat-icon>format_list_bulleted</mat-icon>
           <span>Produtos</span>
       </button>
       <button mat-button class="menu-button" routerLink="/products/0/edit">
           <mat-icon>add_box</mat-icon>
           <span>Novo Produto</span>
+      </button>
+      <button mat-button class="menu-button" [routerLink]="['/products/pdf']">
+        <mat-icon>print</mat-icon> <!-- ', product.id,'-->
+        Gerar relatório
       </button>
 
       <mat-divider></mat-divider>

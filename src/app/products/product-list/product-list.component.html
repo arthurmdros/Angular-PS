@@ -36,6 +36,7 @@
             <th>Disponível</th>
             <th>Preço</th>
             <th>Avaliação</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -58,16 +59,11 @@
                (ratingClicked)="onRatingClicked($event)">
               </pm-star>
             </td>
+            <td>{{product.isActive === true ? "Ativo" : "Desativado"}}</td>
             <td>
               <button class="btn btn-outline-primary btn-sm"
                       [routerLink]="['/products',product.id,'edit']"> <!-- ', product.id,'-->
                 Editar
-              </button>
-            </td>
-            <td>
-              <button class="btn btn-outline-primary btn-sm"
-                      [routerLink]="['/products/pdf']"> <!-- ', product.id,'-->
-                Gerar relatório
               </button>
             </td>
           </tr>

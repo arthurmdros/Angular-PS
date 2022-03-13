@@ -169,35 +169,6 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
     imageUrlControl.updateValueAndValidity();
   }
 
-  deleteProduct(): void {
-    if(this.product.id === 0){
-      this.onSaveComplete();
-    }else if(this.product.id){
-      if(confirm(`Deseja deletar o produto? : ${this.product.productName} ?`)){
-        this.productService.deleteProduct(this.product.id)
-          .subscribe({
-            next: () => this.onSaveComplete(),
-            error: err => this.errorMessage = err
-          })
-      }
-    }
-  }
-
-  changeStatus(): void{
-    if(this.product.id === 0){
-      this.onSaveComplete();
-    }else if(this.product.id){
-      if(confirm(`Deseja deletar o produto? : ${this.product.productName} ?`)){
-      this.productService.changeStatus(this.product)
-        .subscribe({
-          next: () => this.onSaveComplete(),
-          error: err => this.errorMessage = err
-        });
-      }
-    }
-  }
-
-
   addTag(): void {
     this.tags.push(new FormControl());
   }

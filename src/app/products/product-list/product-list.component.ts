@@ -65,4 +65,25 @@ export class ProductListComponent implements OnInit, OnDestroy {
   onRatingClicked(message:string): void{
     this.pageTitle = 'Lista de produtos: ' + message;
   }
+
+
+  deleteProduct(product: IProduct): void {
+    if(confirm(`Deseja deletar o produto: ${product.productName} ?`)){
+      this.productService.deleteProduct(product.id)
+        .subscribe({
+          next: () => this.ngOnInit(),
+          error: err => this.errorMessage = err
+        })
+      }
+    }
+
+  changeStatus(product: IProduct): void{
+    if(confirm(`Deseja deletar o produto: ${product.productName} ?`)){
+    this.productService.changeStatus(product)
+      .subscribe({
+        next: () => this.ngOnInit(),
+        error: err => this.errorMessage = err
+      });
+    }
+  }
 }

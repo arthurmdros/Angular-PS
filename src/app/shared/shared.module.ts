@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StarComponent } from './star.component';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PdfGeneratorComponent } from './pdf-generator/pdf-generator.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 import { PaginatorComponent } from './paginator/paginator.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { PdfGeneratorComponent } from './pdf-generator/pdf-generator.component';
+import { StarComponent } from './star.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import {MatButtonModule} from '@angular/material/button';
     StarComponent,
     CommonModule,
     FormsModule,
-    PaginatorComponent
+    PaginatorComponent,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class SharedModule { }

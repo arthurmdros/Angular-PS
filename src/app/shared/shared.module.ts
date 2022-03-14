@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { PaginatorComponent } from './paginator/paginator.component';
 import { PdfGeneratorComponent } from './pdf-generator/pdf-generator.component';
-import { StarComponent } from './star.component';
+import { StarComponent } from './star/star.component';
 
 @NgModule({
   declarations: [

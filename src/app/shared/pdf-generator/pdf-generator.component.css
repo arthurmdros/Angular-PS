@@ -1,6 +1,17 @@
-div.row, div {
+div.row, div{
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+header{
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+th{
+  height: 50px;
 }

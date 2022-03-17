@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,6 +14,7 @@ import { ProductModule } from './products/product.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { Product } from './products/product';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CacheInterceptor } from './services/cache.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     MatDividerModule,
     LayoutModule
+  ],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

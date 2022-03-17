@@ -1,9 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry, tap } from 'rxjs/operators';
 
 import { IProduct } from '../products/entity';
+import { CACHEABLE } from './cache.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class ProductsService {
   constructor(private http:HttpClient) {}
 
   getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.productUrl)
+  return this.http.get<IProduct[]>(this.productUrl, {
+    context: new HttpContext().set(CACHEABLE, false)
+    })
       .pipe(
         tap(data => console.log('getProducts: '+ JSON.stringify(data))),
         catchError(this.handleError)
@@ -39,7 +42,7 @@ export class ProductsService {
     product.id = null;
     product.releaseDate = date;
     product.isActive = true;
-    
+
     return this.http.post<IProduct>(this.productUrl, product, {headers: headers})
       .pipe(
         tap(data => console.log('CreateProduct: ' + JSON.stringify(data))),

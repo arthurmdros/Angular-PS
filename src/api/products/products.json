@@ -21,7 +21,7 @@
     "imageUrl": "assets/images/garden_cart.png"
   },
   {
-    "Id": 5,
+    "Id": 3,
     "productName": "Hammer",
     "productCode": "TBX-004",
     "releaseDate": "May 21, 2018",
@@ -32,7 +32,7 @@
     "tags": ["tools", "hammer", "construction"]
   },
   {
-    "Id": 8,
+    "Id": 4,
     "productName": "Saw",
     "productCode": "TBX-002",
     "releaseDate": "May 15, 2018",
@@ -42,7 +42,7 @@
     "imageUrl": "assets/images/saw.png"
   },
   {
-    "Id": 10,
+    "Id": 5,
     "productName": "Video Game Controller",
     "productCode": "GMG-004",
     "releaseDate": "October 15, 2018",

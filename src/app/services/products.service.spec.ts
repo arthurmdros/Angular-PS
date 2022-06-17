@@ -1,9 +1,9 @@
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing'
 
-import { ProductsService } from './products.service';
-import { IProduct } from '../products/entity';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IProduct } from '../products/entity';
+import { ProductsService } from './products.service';
 
 describe('ProductsService Tests', () => {
   let productService: ProductsService;

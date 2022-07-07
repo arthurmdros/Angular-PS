@@ -29,3 +29,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 ng-component.ng-star-inserted{
   width: 100%;
 }
+
+.grid-container {
+  margin: 20px;
+}

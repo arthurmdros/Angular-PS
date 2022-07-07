@@ -1,4 +1,7 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component  } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'pm-root',
@@ -9,9 +12,13 @@ import { Component  } from '@angular/core';
 export class AppComponent{
   pageTitle: string = "Gerenciador de Produtos"
 
-  opened = false;
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
 
-  constructor() {}
+  constructor(private breakpointObserver: BreakpointObserver) {}
   /*
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;

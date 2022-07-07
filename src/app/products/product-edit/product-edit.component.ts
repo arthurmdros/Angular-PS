@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, OnDestroy, ViewChildren, ElementRef } from '@angular/core';
-import { FormArray, FormControlName, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormArray, FormControlName, FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
 import { IProduct } from '../entity';
 import { Subscription, Observable, fromEvent, merge } from 'rxjs';
 import { GenericValidator } from '../../shared/generic-validator';
@@ -36,9 +36,23 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.productForm.get('tags') as FormArray;
   }
 
+  token: string|undefined;
+
+  public send(form: NgForm): void {
+    if (form.invalid) {
+      for (const control of Object.keys(form.controls)) {
+        form.controls[control].markAsTouched();
+      }
+      return;
+    }
+
+    console.debug(`Token [${this.token}] generated`);
+  }
+
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
     private router: Router, private productService: ProductsService,
     private datePipe: DatePipe) {
+      this.token = undefined;
       this.validationMessages = {
         productName: {
           required: 'Nome do produto é obrigatório.',

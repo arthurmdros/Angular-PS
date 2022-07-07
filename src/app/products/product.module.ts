@@ -11,7 +11,9 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { Product } from './product';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { PdfGeneratorComponent } from '../shared/pdf-generator/pdf-generator.component';
-
+import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { environment } from '../../environments/environment.prod';
+import { LOCALE_ID } from "@angular/core";
 @NgModule({
   declarations: [
     ProductListComponent,
@@ -33,7 +35,21 @@ import { PdfGeneratorComponent } from '../shared/pdf-generator/pdf-generator.com
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
     InMemoryWebApiModule.forRoot(Product)
-  ]
+  ],
+    providers:[
+      {
+        provide: RECAPTCHA_SETTINGS,
+        useValue: {
+          siteKey: environment.recaptcha.siteKey,
+        } as RecaptchaSettings,
+      },
+      {
+        provide: RECAPTCHA_LANGUAGE,
+        useValue: "pt-Br", // use French language
+      },
+    ]
 })
 export class ProductModule { }
